@@ -1,11 +1,12 @@
-# SE2-OfficeQueueSystem
+# SE2-OfficeQueueSystem #
 
-##v1.0 DB (initial version)
+## v1.0 DB (initial version) ##
 
 DB technology: SQLite
+
 DB editor (lightweight): SQLiteStudio 3.3.3 (download at https://sqlitestudio.pl/)
 
-###DB Structure
+### DB Structure
 Tables:
 1. admins: store administrator credentials
   - (int)admin_id: primary key
