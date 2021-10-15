@@ -30,7 +30,7 @@ Tables:
 
 5. desks_services: actual desk configuration (correlate desk with the services it offers)
   - (int)desk_id: foreign key
-  - (int)desk_id: foreign key
+  - (int)service_id: foreign key
 
 6. tickets: tickets released to users asking for a ticket (source for extracting office waiting queues)
   - (int)ticket_id: primary key, daily unique ticket id
