@@ -1,6 +1,6 @@
 # SE2-OfficeQueueSystem #
 
-## v1.0 DB (initial version) ##
+## v1.1 DB (updated version with user table and edited officers table) ##
 
 DB technology: SQLite
 
