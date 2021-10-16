@@ -126,7 +126,8 @@ app.get("/api/queues", async (req, res) => {
 
 app.get("/api/queueByService:service_id", async (req, res) => {
     const service_id = req.params.service_id;
-    res.json(await queuesDao.getQueuesByService(service_id));
+    console.log(service_id);
+    res.json(await queuesDao.getQueueByService(service_id));
 });
 
 app.get("/api/servedTickets", async(req,res) => {
@@ -214,9 +215,9 @@ app.get("/api/ticketStatus:ticket_id", async(req,res) => {
 
 app.get("/api/generateTicket:service_id", async(req,res)=>{
 
-    const service_id = req.params.ticket_id;
+    const service_id = req.params.service_id;
     
-    var newTicketId = await ticketsDao.getTicketStatus(service_id);
+    var newTicketId = await ticketsDao.generateNewTicket(service_id);
     
     console.log(newTicketId);
 
