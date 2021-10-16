@@ -70,11 +70,11 @@ exports.getWaitingTickets = () => {
 exports.getTicketStatus = (ticket_id) => {
     return new Promise((resolve, reject) => {
         const sql = "SELECT * FROM tickets WHERE ticket_id = ?"
-        db.run(sql, [ticket_id], (err) => {
+        db.get(sql, [ticket_id], (err, row) => {
             if (err) {
                 reject(err);
             }
-            resolve(tickets);
+            resolve(row);
         });
     });
 }
@@ -82,19 +82,13 @@ exports.getTicketStatus = (ticket_id) => {
 exports.generateNewTicket = (service_id) => {
     const ticket_time = dayjs().format();
     return new Promise((resolve, reject) => {
-        const sql = "SELECT COALESCE(MAX(ticket_id),0) AS max_ticket_id FROM tickets"
-        db.get(sql, [service_id], (err, row) => {
+        const sql = "INSERT INTO tickets(ticket_id, service_id, desk_id, ticket_time, ticket_status) VALUES(?,?,?,?,?)"
+        db.run(sql, [null, service_id, null, ticket_time, "waiting"], function (err) {
             if (err) {
                 reject(err);
             }
-            const sql2 = "INSERT INTO tickets(ticket_id, service_id, desk_id, ticket_time, ticket_status) VALUES(?,?,?,?,?)"
-            db.run(sql, [row.max_ticket_id + 1, service_id, -1, ticket_time, "Waiting"], (err) => {
-                if (err) {
-                    reject(err);
-                }
-
-                resolve(row.max_ticket_id + 1);
-            });
+            console.log(this);
+            resolve(this.lastID);
         });
     });
 }
