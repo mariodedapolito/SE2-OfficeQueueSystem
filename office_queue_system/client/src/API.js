@@ -56,7 +56,7 @@ async function getAllQueues() {
 //Get the queue (served/called/waiting tickets) based on the service_id
 //returns:  [array of objects{ticket_id, service_id, desk_id, ticket_time, ticket_status}]
 async function getQueueByService(service_id) {
-  const response = await fetch('http://localhost:3000/api/queueByService:'+service_id);
+  const response = await fetch('/api/queueByService'+service_id);
   const queueArray = await response.json();
   if (response.ok) {
     return queueArray;
@@ -73,7 +73,7 @@ async function getQueueByService(service_id) {
 //          [n][array of objects{ticket_id, service_id, desk_id, ticket_time, ticket_status = served}] --> all the serviceID for this queue are the same
 //NOTE: the row index DOES NOT correspond to the actual service_id of the objects!!
 async function getServedTickets() {
-  const response = await fetch('http://localhost:3000/api/servedTickets');
+  const response = await fetch('/api/servedTickets');
   const queuesArray = await response.json();
   if (response.ok) {
     return queuesArray;
@@ -90,7 +90,7 @@ async function getServedTickets() {
 //          [n][array of objects{ticket_id, service_id, desk_id, ticket_time, ticket_status = called}] --> all the serviceID for this queue are the same
 //NOTE: the row index DOES NOT correspond to the actual service_id of the objects!!
 async function getCalledTickets() {
-  const response = await fetch('http://localhost:3000/api/calledTickets');
+  const response = await fetch('/api/calledTickets');
   const queuesArray = await response.json();
   if (response.ok) {
     return queuesArray;
@@ -107,7 +107,7 @@ async function getCalledTickets() {
 //          [n][array of objects{ticket_id, service_id, desk_id, ticket_time, ticket_status = waiting}] --> all the serviceID for this queue are the same
 //NOTE: the row index DOES NOT correspond to the actual service_id of the objects!!
 async function getWaitingTickets() {
-  const response = await fetch('http://localhost:3000/api/waitingTickets');
+  const response = await fetch('/api/waitingTickets');
   const queuesArray = await response.json();
   if (response.ok) {
     return queuesArray;
@@ -119,7 +119,7 @@ async function getWaitingTickets() {
 //Get the ticket status given a ticketID
 //returns: object{ticket_id, service_id, desk_id, ticket_time, ticket_status}
 async function getTicketStatus(ticket_id) {
-  const response = await fetch('http://localhost:3000/api/ticketStatus:'+ticket_id);
+  const response = await fetch('/api/ticketStatus'+ticket_id);
   const status = await response.json();
   if (response.ok) {
     return status;
@@ -131,7 +131,7 @@ async function getTicketStatus(ticket_id) {
 //Generate a new ticket given the serviceID and insert it in queue
 //returns: newTicketID (the ticket number)
 async function generateNewTicket(service_id) {
-  const response = await fetch('http://localhost:3000/api/generateTicket:'+service_id);
+  const response = await fetch('/api/generateTicket'+service_id);
   const newTicketID = await response.json();
   if (response.ok) {
     return newTicketID;
