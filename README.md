@@ -8,14 +8,14 @@ DB editor (lightweight): SQLiteStudio 3.3.3 (download at https://sqlitestudio.pl
 
 ### DB Structure
 Tables:
-1. user: store administrator credentials
+1. user: store administrator/officer credentials
   - (int)id: primary key
   - (text)name: name of the user
   - (text)email: email of the user
   - (text)hash: hashed pass
   - (int)admin: 1->log in as Admin / 0->log in as Officer
 
-2. officers: store officers credentials
+2. officers: store officers current desk
   - (int)officer_id: primary key
   - (int)desk_id: foreign key to show the actual desk that the officer is seated (so when he/she pushes the "call next user" button we know in which desk the user needs to go/was called from; when the officer signs in he/she selects the desk that he/she is seated in)
 
