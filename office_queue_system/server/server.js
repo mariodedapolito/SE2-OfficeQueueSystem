@@ -109,6 +109,7 @@ app.get("/api/queues", async (req, res) => {
     dbQueues.forEach(element => {
         if (element.service_id !== currentService) {
             currentIndex++;
+            currentService=element.service_id;
             queuedServices.push(new Array());
             queuedServices[currentIndex].push(element);
         }
@@ -138,6 +139,7 @@ app.get("/api/servedTickets", async(req,res) => {
     dbServedTickets.forEach(element => {
         if (element.service_id !== currentService) {
             currentIndex++;
+            currentService=element.service_id;
             queuedServices.push(new Array());
             queuedServices[currentIndex].push(element);
         }
@@ -161,6 +163,7 @@ app.get("/api/calledTickets", async(req,res) => {
     dbCalledTickets.forEach(element => {
         if (element.service_id !== currentService) {
             currentIndex++;
+            currentService=element.service_id;
             queuedServices.push(new Array());
             queuedServices[currentIndex].push(element);
         }
@@ -184,6 +187,7 @@ app.get("/api/waitingTickets", async(req,res) => {
     dbWaitingTickets.forEach(element => {
         if (element.service_id !== currentService) {
             currentIndex++;
+            currentService=element.service_id;
             queuedServices.push(new Array());
             queuedServices[currentIndex].push(element);
         }
