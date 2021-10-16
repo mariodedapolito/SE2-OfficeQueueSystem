@@ -210,7 +210,13 @@ app.get("/api/ticketStatus:ticket_id", async(req,res) => {
     
     console.log(dbticketStatus);
 
-    res.json(dbticketStatus);
+    if(dbticketStatus){
+        res.json(dbticketStatus);
+    }
+    else{
+        res.json(null);
+    }
+
 });
 
 app.get("/api/generateTicket:service_id", async(req,res)=>{
