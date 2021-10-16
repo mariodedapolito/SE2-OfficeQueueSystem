@@ -2,7 +2,6 @@
 
 const express = require('express');
 const morgan = require('morgan'); // logging middleware
-const { check, validationResult } = require('express-validator'); // validation middleware
 const dbt = require('./dbt'); // module for accessing the DB
 const queuesDao = require('./Dao/queues-dao');
 const ticketsDao = require('./Dao/tickets-dao');
