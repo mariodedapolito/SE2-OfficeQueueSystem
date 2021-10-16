@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch,Link } from 'react-router-dom';
 import {  Button} from 'react-bootstrap';
 import {LoginForm,LogoutButton} from './LoginForm';
+import { WaitTimePage } from './Components/WaitTimePage';
 import API from './API';
 import Modal from 'react-bootstrap/Modal'
 
