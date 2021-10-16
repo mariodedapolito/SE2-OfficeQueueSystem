@@ -4,6 +4,8 @@ const express = require('express');
 const morgan = require('morgan'); // logging middleware
 const { check, validationResult } = require('express-validator'); // validation middleware
 const dbt = require('./dbt'); // module for accessing the DB
+const queuesDao = require('./Dao/queues-dao');
+const ticketsDao = require('./Dao/tickets-dao');
 const passportLocal = require('passport-local').Strategy;//Authentication strategy 
 const session = require('express-session');//Session middleware
 const passport = require('passport'); //Authentication middleware
@@ -97,6 +99,35 @@ app.delete('/api/sessions/current', (req, res) => {
     res.end("Logout completed!");
 });
 
+
+app.get("/api/queues", async (req, res) => {
+    var dbQueues = await queuesDao.getAllQueues();
+
+    let queuedServices = [];
+    let currentService = -1;
+    let currentIndex = -1;
+
+    dbQueues.forEach(element => {
+        if (element.service_id !== currentService) {
+            currentIndex++;
+            queuedServices.push(new Array());
+            queuedServices[currentIndex].push(element);
+        }
+        else {
+            queuedServices[currentIndex].push(element);
+        }
+    });
+    
+    console.log(queuedServices);
+
+    res.json(queuedServices);
+});
+
+
+app.get("/api/queueByService:service_id", async (req, res) => {
+    const service_id = req.params.service_id;
+    res.json(await queuesDao.getQueuesByService(service_id));
+});
 
 
 /* CONNECTION */
