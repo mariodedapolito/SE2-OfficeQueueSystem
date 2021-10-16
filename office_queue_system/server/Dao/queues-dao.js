@@ -12,7 +12,7 @@ const db = new sqlite.Database('office_db.db', (err) => {
 
 exports.getAllQueues = () => {
     return new Promise((resolve, reject) => {
-        const sql = "SELECT * FROM tickets GROUP BY service_id"
+        const sql = "SELECT * FROM tickets ORDER BY service_id, ticket_id ASC"
         db.all(sql, [], (err, rows) => {
             if (err) {
                 reject(err);
@@ -31,7 +31,7 @@ exports.getAllQueues = () => {
 
 exports.getQueueByService = (service_id) => {
     return new Promise((resolve, reject) => {
-        const sql = "SELECT * FROM tickets WHERE service_id  = ?"
+        const sql = "SELECT * FROM tickets WHERE service_id  = ? ORDER BY ticket_id ASC"
         db.all(sql, [service_id], (err, rows) => {
             if (err) {
                 reject(err);

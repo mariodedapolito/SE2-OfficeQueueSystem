@@ -12,7 +12,7 @@ const db = new sqlite.Database('office_db.db', (err) => {
 
 exports.getServedTickets = () => {
     return new Promise((resolve, reject) => {
-        const sql = "SELECT * FROM tickets WHERE ticket_status = \"Served\" GROUP BY service_id"
+        const sql = "SELECT * FROM tickets WHERE ticket_status = \"served\" ORDER BY service_id, ticket_id ASC"
         db.all(sql, [], (err, rows) => {
             if (err) {
                 reject(err);
@@ -31,7 +31,7 @@ exports.getServedTickets = () => {
 
 exports.getCalledTickets = () => {
     return new Promise((resolve, reject) => {
-        const sql = "SELECT * FROM tickets WHERE ticket_status = \"Called\" GROUP BY service_id"
+        const sql = "SELECT * FROM tickets WHERE ticket_status = \"called\" ORDER BY service_id, ticket_id ASC"
         db.all(sql, [], (err, rows) => {
             if (err) {
                 reject(err);
@@ -50,7 +50,7 @@ exports.getCalledTickets = () => {
 
 exports.getWaitingTickets = () => {
     return new Promise((resolve, reject) => {
-        const sql = "SELECT * FROM tickets WHERE ticket_status = \"Waiting\" GROUP BY service_id"
+        const sql = "SELECT * FROM tickets WHERE ticket_status = \"waiting\" ORDER BY service_id, ticket_id ASC"
         db.all(sql, [], (err, rows) => {
             if (err) {
                 reject(err);
@@ -79,9 +79,10 @@ exports.getTicketStatus = (ticket_id) => {
     });
 }
 
-exports.generateNewTicket = (service_id, ticket_time) => {
+exports.generateNewTicket = (service_id) => {
+    const ticket_time = dayjs().format();
     return new Promise((resolve, reject) => {
-        const sql = "SELECT COALESCE(MAX(ticket_id),0) AS max_ticket_id FROM tickets WHERE service_id = ?"
+        const sql = "SELECT COALESCE(MAX(ticket_id),0) AS max_ticket_id FROM tickets"
         db.get(sql, [service_id], (err, row) => {
             if (err) {
                 reject(err);
