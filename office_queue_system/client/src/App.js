@@ -20,6 +20,7 @@ function BLogin(){
  return(<>
 <Button style={{fontSize: 20}}variant={"light"} ><Link to="/login">Login</Link></Button>
 <Button style={{fontSize: 20}}variant={"light"} ><Link to="/queues">Queues</Link></Button>
+<Button style={{ fontSize: 20 }} variant={"light"} ><Link to="/waitingTime">Waiting time calculator</Link></Button>
 </>
 );}
  
@@ -115,6 +116,7 @@ return (
               <Route path="/admin" render={()=><LogoutButton logout={doLogOut}/>}/>
               <Route path="/officer" render={()=><LogoutButton logout={doLogOut}/>}/>
               <Route path="/queues" render={()=><QueueTable queues = {queue}/>}/>
+              <Route path="/waitingTime" render={() => <WaitTimePage />} />
 
            <Route path="/" render={()=><BLogin/>}/>
 
