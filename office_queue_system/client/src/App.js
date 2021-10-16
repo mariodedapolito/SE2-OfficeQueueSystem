@@ -10,9 +10,16 @@ import {LoginForm,LogoutButton} from './LoginForm';
 import API from './API';
 import Modal from 'react-bootstrap/Modal'
 
+
+import QueueTable from './Components/QueueViewer.js'
+
+
+
+
 function BLogin(){
  return(<>
 <Button style={{fontSize: 20}}variant={"light"} ><Link to="/login">Login</Link></Button>
+<Button style={{fontSize: 20}}variant={"light"} ><Link to="/queues">Queues</Link></Button>
 </>
 );}
  
@@ -28,7 +35,31 @@ const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
 
 
-/*USEFFECT LOGIN*/
+
+/* QUEUE DATA STRUCTURE */
+const [queue, setQueue] = useState([]);
+
+
+
+
+
+
+
+useEffect(() => {
+  const getQueues = async () => {
+    const q = await API.getAllQueues();
+    setQueue(q);
+  };
+  getQueues().catch(err => {setMessage("impossible to load your queue! please try again later..");
+  console.error(err);
+  console.error(message);
+});
+},[] );
+
+
+
+
+/*USEFFECT LOGI*/
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -80,9 +111,10 @@ return (
         
         <Switch>
           
-            <Route path="/login" render={()=><LoginForm me={me}login={doLogIn} admin={admin} />}/>
-             <Route path="/admin" render={()=><LogoutButton logout={doLogOut}/>}/>
-               <Route path="/officer" render={()=><LogoutButton logout={doLogOut}/>}/>
+              <Route path="/login" render={()=><LoginForm me={me}login={doLogIn} admin={admin} />}/>
+              <Route path="/admin" render={()=><LogoutButton logout={doLogOut}/>}/>
+              <Route path="/officer" render={()=><LogoutButton logout={doLogOut}/>}/>
+              <Route path="/queues" render={()=><QueueTable queues = {queue}/>}/>
 
            <Route path="/" render={()=><BLogin/>}/>
 

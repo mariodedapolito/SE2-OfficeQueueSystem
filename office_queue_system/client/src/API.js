@@ -44,7 +44,7 @@ async function getUserInfo() {
 //          [n][array of objects{ticket_id, service_id, desk_id, ticket_time, ticket_status}] --> all the serviceID for this queue are the same
 //NOTE: the row index DOES NOT correspond to the actual service_id of the objects!!
 async function getAllQueues() {
-  const response = await fetch('http://localhost:3000/api/queues');
+  const response = await fetch('/api/queues');
   const queuesArray = await response.json();
   if (response.ok) {
     return queuesArray;
