@@ -128,6 +128,97 @@ app.get("/api/queueByService:service_id", async (req, res) => {
     res.json(await queuesDao.getQueuesByService(service_id));
 });
 
+app.get("/api/servedTickets", async(req,res) => {
+    var dbServedTickets = await ticketsDao.getServedTickets();
+
+    let queuedServices = [];
+    let currentService = -1;
+    let currentIndex = -1;
+
+    dbServedTickets.forEach(element => {
+        if (element.service_id !== currentService) {
+            currentIndex++;
+            queuedServices.push(new Array());
+            queuedServices[currentIndex].push(element);
+        }
+        else {
+            queuedServices[currentIndex].push(element);
+        }
+    });
+    
+    console.log(queuedServices);
+
+    res.json(queuedServices);
+});
+
+app.get("/api/calledTickets", async(req,res) => {
+    var dbCalledTickets = await ticketsDao.getCalledTickets();
+
+    let queuedServices = [];
+    let currentService = -1;
+    let currentIndex = -1;
+
+    dbCalledTickets.forEach(element => {
+        if (element.service_id !== currentService) {
+            currentIndex++;
+            queuedServices.push(new Array());
+            queuedServices[currentIndex].push(element);
+        }
+        else {
+            queuedServices[currentIndex].push(element);
+        }
+    });
+    
+    console.log(queuedServices);
+
+    res.json(queuedServices);
+});
+
+app.get("/api/waitingTickets", async(req,res) => {
+    var dbWaitingTickets = await ticketsDao.getWaitingTickets();
+
+    let queuedServices = [];
+    let currentService = -1;
+    let currentIndex = -1;
+
+    dbWaitingTickets.forEach(element => {
+        if (element.service_id !== currentService) {
+            currentIndex++;
+            queuedServices.push(new Array());
+            queuedServices[currentIndex].push(element);
+        }
+        else {
+            queuedServices[currentIndex].push(element);
+        }
+    });
+    
+    console.log(queuedServices);
+
+    res.json(queuedServices);
+});
+
+app.get("/api/ticketStatus:ticket_id", async(req,res) => {
+    
+    const ticket_id = req.params.ticket_id;
+    
+    var dbticketStatus = await ticketsDao.getTicketStatus(ticket_id);
+    
+    console.log(dbticketStatus);
+
+    res.json(dbticketStatus);
+});
+
+app.get("/api/generateTicket:service_id", async(req,res)=>{
+
+    const service_id = req.params.ticket_id;
+    
+    var newTicketId = await ticketsDao.getTicketStatus(service_id);
+    
+    console.log(newTicketId);
+
+    res.json(newTicketId);
+});
+
 
 /* CONNECTION */
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}/`));
