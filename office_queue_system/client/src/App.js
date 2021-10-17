@@ -5,12 +5,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch,Link } from 'react-router-dom';
-import {  Button} from 'react-bootstrap';
+import {Row,Alert, Button} from 'react-bootstrap';
 import {LoginForm,LogoutButton} from './LoginForm';
 import { WaitTimePage } from './Components/WaitTimePage';
 import API from './API';
 import Modal from 'react-bootstrap/Modal'
-
+import AdminPage from './Components/AdminPage.js'
+import officer from './Officer';
 
 import QueueTable from './Components/QueueViewer.js'
 
@@ -26,16 +27,17 @@ function BLogin(){
 );}
  
 
-
+let group=[]; 
 
 function App() {
 const [show, setShow] = useState(false);
 const [message,setMessage]=useState('');
-const [me,setMe]=useState('');
-const [admin,setAdmin]=useState('');
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
+const [logged,setLogged]=useState(false);
 
+/* OFFICERS LIST STRUCTURE */
+const [officersList,setOfficersList]=useState([]);
 
 
 /* QUEUE DATA STRUCTURE */
@@ -59,9 +61,29 @@ useEffect(() => {
 },[] );
 
 
+ /* USEFFECT OFFICERS*/
+  useEffect(()=>{
+    const functest=()=>{
+    API.getallOfficers().then(data=>{
+      data.forEach((x) => {
+     group.push(new officer(x.officer_id,x.desk_id,x.username));
+        
+                 });
+      let temp=[...group];
+      
+      group=[]; 
+     
+      setOfficersList(temp);
+     
+   
+    })};  functest();
+ 
+  },[]);
+ 
 
 
-/*USEFFECT LOGI*/
+
+/*USEFFECT LOGIN*/
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -76,35 +98,32 @@ useEffect(() => {
  const doLogIn = async (credentials) => {
     try {
       const user = await API.logIn(credentials);
-     
-     
-      handleShow();
-      setMessage({ msg: `Welcome, ${user.name}!`, type: 'success' });
-      setMe('');
-     
-       setAdmin(`${user.admin}`);
+      setLogged(true);
+      handleShow(); 
+      setMessage({ msg: `Hello, ${user}!`, type: 'success' });
+      
     } catch (err) {
-     
-      setMe('Password and/or email are not correct');
+    
+      setMessage({ msg: err, type: 'danger' });
     }
   }
 
 
   const doLogOut = async () => {
     await API.logOut();
-    
-   
-   
-    
+     setLogged(false);
   }
 
 return (
   <Router>
-
+     
+  {message.type === "danger" && <Row className="ml-auto mr-auto d-lg-block" style={{ width: '450px', height: '50px' }}>
+        <Alert variant={message.type} onClose={() => setMessage('')} dismissible>{message.msg}</Alert>
+      </Row>}
  {/* Modale di benvenuto */}
         <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title></Modal.Title>
+          <Modal.Title>Welcome</Modal.Title>
         </Modal.Header>
         <Modal.Body> {message.msg}</Modal.Body>
         <Modal.Footer>
@@ -112,12 +131,15 @@ return (
       </Modal>
         
         <Switch>
-              <Route path="/login" render={()=><LoginForm me={me}login={doLogIn} admin={admin} />}/>
+          
+              <Route path="/login" render={()=><LoginForm login={doLogIn} officersList={officersList} logged={logged} />}/>
               <Route path="/admin" render={()=><LogoutButton logout={doLogOut}/>}/>
               <Route path="/officer" render={()=><LogoutButton logout={doLogOut}/>}/>
               <Route path="/queues" render={()=><QueueTable queues = {queue}/>}/>
               <Route path="/waitingTime" render={() => <WaitTimePage />} />
-              <Route path="/" render={()=><BLogin/>}/>
+
+           <Route path="/" render={()=><BLogin/>}/>
+
         </Switch>
 
   </Router>
