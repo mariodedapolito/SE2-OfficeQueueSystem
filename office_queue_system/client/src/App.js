@@ -32,7 +32,7 @@ let group=[];
 function App() {
 const [show, setShow] = useState(false);
 const [message,setMessage]=useState('');
-const handleClose = () => setShow(false);
+const handleClose = () => setShow(false); 
 const handleShow = () => setShow(true);
 const [logged,setLogged]=useState(false);
 
