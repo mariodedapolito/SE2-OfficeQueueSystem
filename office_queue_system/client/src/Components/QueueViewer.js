@@ -4,6 +4,7 @@ import {Table} from 'react-bootstrap';
 import {Col,Row} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
+import Notification from "./Notification";
 
     /* ticket_id, service_id, desk_id, ticket_time, ticket_status */ 
 
@@ -12,7 +13,8 @@ import {Button} from 'react-bootstrap';
 function QueueTable(props) {
 
     return (<>
-    <div>
+    <Notification />
+    <div className={"pt-5"}>
       <Row>
       </Row>
       <Row>

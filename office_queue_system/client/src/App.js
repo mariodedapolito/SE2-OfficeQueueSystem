@@ -14,6 +14,7 @@ import AdminPage from './Components/AdminPage.js'
 import officer from './Officer';
 import MenuBar from './Components/MenuBar.js'
 import HomePage from './Components/HomePage';
+import SelectServices from './Components/SelectServices';
 
 import QueueTable from './Components/QueueViewer.js'
 
@@ -138,6 +139,7 @@ return (
               <Route path="/officer" render={()=><LogoutButton logout={doLogOut}/>}/>
               <Route path="/queues" render={()=><QueueTable queues = {queue}/>}/>
               <Route path="/waitingTime" render={() => <WaitTimePage />} />
+              <Route path="/selectservices" render={() => <SelectServices/> }/>
 
            <Route path="/" render={()=><BLogin/>}/>
 
