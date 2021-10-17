@@ -5,6 +5,7 @@ const morgan = require('morgan'); // logging middleware
 const dbt = require('./dbt'); // module for accessing the DB
 const queuesDao = require('./Dao/queues-dao');
 const ticketsDao = require('./Dao/tickets-dao');
+const adminDao = require('./Dao/admin-dao');
 const passportLocal = require('passport-local').Strategy;//Authentication strategy 
 const session = require('express-session');//Session middleware
 const passport = require('passport'); //Authentication middleware
@@ -240,6 +241,74 @@ app.get("/api/generateTicket:service_id", async(req,res)=>{
     console.log(newTicketId);
 
     res.json(newTicketId);
+});
+
+//// Admin part/////
+app.get('/api/desks', (req,res)=>{
+    adminDao.listAllDesks()
+        .then((surveys)=>{res.json(surveys)})
+        .catch((error)=>{res.status(500).json(error)} )
+  })
+
+
+  app.get('/api/services/desk/:id', async (req,res)=>{
+    const deskId = req.params.id
+    adminDao.listServicesByDesk(deskId)
+        .then((services) => res.json(services))
+        .catch((err) => res.status(500).json({errors: [{'msg': err}] }));
+});  
+
+app.post('/api/serviceForDesk', (req,res) => {
+    const survey = req.body;
+    if(!survey){
+        res.status(400).end();
+    } else {
+        adminDao.createServiceForDesk(survey)
+            .then((id) => res.status(201).json({"id" : id}))
+            .catch((err) => res.status(500).json(error),
+        );
+    }
+  });
+
+  app.delete('/api/serviceForDesk/delete/:deskId/:serviceId', (req,res) => {
+    const desk_id= req.params.deskId
+    const service_id= req.params.serviceId
+  adminDao.deleteServiceOfDesk(desk_id, service_id)
+      .then((id) => res.status(204).json(`Selected service with id:${service_id} for Desk: ${desk_id} was deleted`))
+      .catch((err) => res.status(500).json(`Error while deleting the survey with id:${req.params.id}  `+err),
+      );
+});
+
+app.get('/api/services', (req,res)=>{
+    adminDao.listAllServices()
+        .then((surveys)=>{res.json(surveys)})
+        .catch((error)=>{res.status(500).json(error)} )
+  })
+
+  app.post('/api/service', (req,res) => {
+    const service = req.body;
+    if(!service){
+        res.status(400).end();
+    } else {
+        adminDao.createService(service)
+            .then((id) => res.status(201).json({"id" : id}))
+            .catch((err) => res.status(500).json(error),
+        );
+    }
+  });  
+
+
+  app.put('/api/services/update/time/:serviceId/:time',  async(req,res) => {
+    const id = req.params.serviceId;
+    const time= req.params.time;
+    try{
+        let task=await adminDao.updateServiceTime(id,time)
+        res.json(`Service time of Service with id: ${id} was changed`)
+    }
+    catch(error){
+        res.status(500).json(`Error while updating the status of the survey with id: ${id}   `+ error)
+    }
+
 });
 
 
