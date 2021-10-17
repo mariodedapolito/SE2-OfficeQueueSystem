@@ -9,7 +9,7 @@ async function logIn(credentials) {
   });
   if (response.ok) {
     const user = await response.json();
-    return  user.name ;
+    return  user ;
   }
   else {
     try {
@@ -155,8 +155,37 @@ async function generateNewTicket(service_id) {
   }
 }
 
+//GET of services per desks
+async function getallServicesPerDesk(){
 
+const response=await fetch(`http://localhost:3000/api/servicesperdesk`);
+if(response.ok){
+  const responseBody=await response.json();
+  return responseBody;
+}
+ else{
+     try {
+       const err=await response.json();
+       throw err.message;}
+        catch(err){throw err;}
+     }
+ }
+//GET of services 
+async function getallServices(){
 
-const API = { logOut, logIn, getUserInfo, getallOfficers, getAllQueues, getQueueByService, getServedTickets, getCalledTickets, getWaitingTickets, getTicketStatus, generateNewTicket};
+const response=await fetch(`http://localhost:3000/api/services`);
+if(response.ok){
+  const responseBody=await response.json();
+  return responseBody;
+}
+ else{
+     try {
+       const err=await response.json();
+       throw err.message;}
+        catch(err){throw err;}
+     }
+ }
+
+const API = { logOut, logIn, getUserInfo, getallOfficers, getAllQueues, getQueueByService, getServedTickets, getCalledTickets, getWaitingTickets, getTicketStatus, generateNewTicket,getallServicesPerDesk,getallServices};
 export default API;
 
