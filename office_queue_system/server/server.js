@@ -98,6 +98,18 @@ app.delete('/api/sessions/current', (req, res) => {
     res.end("Logout completed!");
 });
 
+//GET all officers
+app.get('/api/officers', async (req, res) => {
+    try {
+        const o = await dbt.getAllOfficers();
+        return res.status(200).json(o);
+    } catch (err) {
+        res.status(500).json({ code: 500, error: `Database error during the retrieve of the list of officers.` });
+    }
+});
+
+
+
 
 app.get("/api/queues", async (req, res) => {
     var dbQueues = await queuesDao.getAllQueues();
@@ -232,5 +244,5 @@ app.get("/api/generateTicket:service_id", async(req,res)=>{
 
 
 /* CONNECTION */
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}/`));
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
 
