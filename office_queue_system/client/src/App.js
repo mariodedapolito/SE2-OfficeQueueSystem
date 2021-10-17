@@ -112,15 +112,12 @@ return (
       </Modal>
         
         <Switch>
-          
               <Route path="/login" render={()=><LoginForm me={me}login={doLogIn} admin={admin} />}/>
               <Route path="/admin" render={()=><LogoutButton logout={doLogOut}/>}/>
               <Route path="/officer" render={()=><LogoutButton logout={doLogOut}/>}/>
               <Route path="/queues" render={()=><QueueTable queues = {queue}/>}/>
               <Route path="/waitingTime" render={() => <WaitTimePage />} />
-
-           <Route path="/" render={()=><BLogin/>}/>
-
+              <Route path="/" render={()=><BLogin/>}/>
         </Switch>
 
   </Router>

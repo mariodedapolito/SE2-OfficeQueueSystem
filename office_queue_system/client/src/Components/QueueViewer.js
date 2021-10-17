@@ -1,6 +1,9 @@
 import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Table} from 'react-bootstrap';
+import {Col,Row} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+import {Button} from 'react-bootstrap';
 
     /* ticket_id, service_id, desk_id, ticket_time, ticket_status */ 
 
@@ -10,7 +13,17 @@ function QueueTable(props) {
 
     return (<>
     <div>
+      <Row>
+      </Row>
+      <Row>
+        <Col>
+        <Link to={"/"} >
+                    <Button className="btn btn-secondary d-block my-2 mx-auto py-2 px-5">Go back</Button>
+                </Link>
+        </Col>
+        <Col>
         <h1>Queues Situation</h1>
+    
       <Table>
         <thead>
           <tr>
@@ -37,6 +50,10 @@ function QueueTable(props) {
         }
         </tbody>
       </Table>
+      </Col>
+      <Col>
+      </Col>
+      </Row>
       </div>
     </>
 
