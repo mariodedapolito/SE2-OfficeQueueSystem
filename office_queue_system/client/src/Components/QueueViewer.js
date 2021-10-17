@@ -28,7 +28,7 @@ function QueueTable(props) {
         <thead>
           <tr>
             <th>Service</th>
-            <th>Queue Lenght</th>
+            <th>Queue Length</th>
           </tr>
         </thead>
         <tbody>{

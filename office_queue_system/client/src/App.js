@@ -12,6 +12,8 @@ import API from './API';
 import Modal from 'react-bootstrap/Modal'
 import AdminPage from './Components/AdminPage.js'
 import officer from './Officer';
+import MenuBar from './Components/MenuBar.js'
+import HomePage from './Components/HomePage';
 
 import QueueTable from './Components/QueueViewer.js'
 
@@ -21,8 +23,6 @@ import QueueTable from './Components/QueueViewer.js'
 function BLogin(){
  return(<>
 <Button style={{fontSize: 20}}variant={"light"} ><Link to="/login">Login</Link></Button>
-<Button style={{fontSize: 20}}variant={"light"} ><Link to="/queues">Queues</Link></Button>
-<Button style={{ fontSize: 20 }} variant={"light"} ><Link to="/waitingTime">Waiting time calculator</Link></Button>
 </>
 );}
  
@@ -116,7 +116,8 @@ useEffect(() => {
 
 return (
   <Router>
-     
+           <MenuBar />
+
   {message.type === "danger" && <Row className="ml-auto mr-auto d-lg-block" style={{ width: '450px', height: '50px' }}>
         <Alert variant={message.type} onClose={() => setMessage('')} dismissible>{message.msg}</Alert>
       </Row>}
