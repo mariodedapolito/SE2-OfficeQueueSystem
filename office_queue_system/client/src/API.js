@@ -9,7 +9,7 @@ async function logIn(credentials) {
   });
   if (response.ok) {
     const user = await response.json();
-    return { name: user.name, admin: user.admin };
+    return  user.name ;
   }
   else {
     try {
@@ -36,6 +36,21 @@ async function getUserInfo() {
   }
 }
 
+//GET of all officers
+async function getallOfficers(){
+
+const response=await fetch('http://localhost:3000/api/officers');
+if(response.ok){
+  const responseBody=await response.json();
+  return responseBody;
+}
+ else{
+     try {
+       const err=await response.json();
+       throw err.message;}
+        catch(err){throw err;}
+     }
+ }
 //Get ALL queues (served/called/waiting tickets in one array)
 //Each row of the array contains the queue for a certain service
 //returns:  [0][array of objects{ticket_id, service_id, desk_id, ticket_time, ticket_status}] --> all the serviceID for this queue are the same
@@ -142,5 +157,6 @@ async function generateNewTicket(service_id) {
 
 
 
-const API = { logOut, logIn, getUserInfo, getAllQueues, getQueueByService, getServedTickets, getCalledTickets, getWaitingTickets, getTicketStatus, generateNewTicket};
+const API = { logOut, logIn, getUserInfo, getallOfficers, getAllQueues, getQueueByService, getServedTickets, getCalledTickets, getWaitingTickets, getTicketStatus, generateNewTicket};
 export default API;
+
