@@ -109,6 +109,29 @@ app.get('/api/officers', async (req, res) => {
     }
 });
 
+//get services per desks
+app.get('/api/servicesperdesk', 
+    async (req, res) => {
+       
+        try {
+          const s=  await dbt.getServicesPerDesk();
+            res.status(200).json(s);
+        } catch (err) {
+            res.status(503).json({ code: 503, error: `Unavailable service error during the retrieve of the services associated to a desk` });
+        }
+    });
+//get services 
+app.get('/api/services', 
+    async (req, res) => {
+       
+        try {
+          const s=  await dbt.getServices();
+            res.status(200).json(s);
+        } catch (err) {
+            res.status(503).json({ code: 503, error: `Unavailable service error during the retrieve of the services ` });
+        }
+    });
+
 
 
 
