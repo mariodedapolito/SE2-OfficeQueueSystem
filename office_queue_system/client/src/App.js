@@ -11,7 +11,8 @@ import { WaitTimePage } from './Components/WaitTimePage';
 import API from './API';
 import Modal from 'react-bootstrap/Modal'
 import AdminPage from './Components/AdminPage.js'
-import officer from './Officer';
+import {officer,service,services_desks} from './Officer';
+import OfficerPage from './Components/OfficerPage';
 import MenuBar from './Components/MenuBar.js'
 import HomePage from './Components/HomePage';
 import SelectServices from './Components/SelectServices';
@@ -19,26 +20,32 @@ import SelectServices from './Components/SelectServices';
 import QueueTable from './Components/QueueViewer.js'
 
 
-
-
 function BLogin(){
  return(<>
 <Button style={{fontSize: 20}}variant={"light"} ><Link to="/login">Login</Link></Button>
+<Button style={{fontSize: 20}}variant={"light"} ><Link to="/queues">Queues</Link></Button>
+<Button style={{ fontSize: 20 }} variant={"light"} ><Link to="/waitingTime">Waiting time calculator</Link></Button>
 </>
 );}
  
 
 let group=[]; 
-
+let g=[]; 
+let t=[]; 
 function App() {
 const [show, setShow] = useState(false);
 const [message,setMessage]=useState('');
-const handleClose = () => setShow(false); 
-const handleShow = () => setShow(true);
 const [logged,setLogged]=useState(false);
+const [username,setUsername]=useState('');
 
-/* OFFICERS LIST STRUCTURE */
+/* LIST STRUCTURES */
 const [officersList,setOfficersList]=useState([]);
+
+const [servicesList,setServicesList]=useState([]);
+
+const [servicesDList,setServicesDList]=useState([]);
+
+const [waiting,setWaiting]=useState([]);
 
 
 /* QUEUE DATA STRUCTURE */
@@ -47,6 +54,8 @@ const [queue, setQueue] = useState([]);
 
 
 
+const handleClose = () => setShow(false);
+const handleShow = () => setShow(true);
 
 
 
@@ -80,8 +89,70 @@ useEffect(() => {
     })};  functest();
  
   },[]);
+/* USEFFECT SERVICES*/
+  useEffect(()=>{
+    const func=()=>{
+    API.getallServices().then(data=>{
+      data.forEach((x) => {
+     g.push(new service(x.service_id, x.service_name, x.service_time));
+        
+                 });
+      let t=[...g];
+      
+      g=[]; 
+     
+      setServicesList(t);
+     
+   
+    })};  func();
  
+  },[]);
+ /*USEFFECT WAITING TICKETS*/
+ useEffect(() => {
+  const getW = async () => {
+    const q = await API.getWaitingTickets();
+    setWaiting(q);
+  };
+  getW().catch(err => {setMessage("impossible to load your Waiting tickets! please try again later..");
+  console.error(err);
+  console.error(message);
+});
+},[] );
+   then(data=>{
+      data.forEach((x) => {
+     d.push(new ticket(x.ticket_id, x.service_id, x.desk));
+        
+                 });
+      let t=[...g];
+      
+      d=[]; 
+     
+      setServicesList(t);
+     
+   
+    })};  func();
+ 
+  },[]);
 
+/* USEFFECT SERVICES PER DESKS*/
+  useEffect(()=>{
+    const fu=()=>{
+    API.getallServicesPerDesk().then(data=>{
+      data.forEach((x) => {
+     t.push(new services_desks(x.desk_id, x.service_id));
+        
+                 });
+      let te=[...t];
+      
+      t=[]; 
+     
+      setServicesDList(te);
+     
+   
+    })};  fu();
+ 
+  },[]);
+ 
 
 
 /*USEFFECT LOGIN*/
@@ -94,15 +165,22 @@ useEffect(() => {
         console.error(err.error);
       }
     };
+if(officersList.length)
     checkAuth();
-  }, []);
+  }, [officersList.length]);
+
+
+
+
+
  const doLogIn = async (credentials) => {
     try {
       const user = await API.logIn(credentials);
       setLogged(true);
       handleShow(); 
-      setMessage({ msg: `Hello, ${user}!`, type: 'success' });
-      
+      setMessage({ msg: `Hello, ${user.name}!`, type: 'success' });
+      setUsername(`${user.username}`);
+
     } catch (err) {
     
       setMessage({ msg: err, type: 'danger' });
@@ -115,6 +193,16 @@ useEffect(() => {
      setLogged(false);
   }
 
+
+
+
+
+
+
+
+
+
+     
 return (
   <Router>
            <MenuBar />
@@ -136,7 +224,7 @@ return (
           
               <Route path="/login" render={()=><LoginForm login={doLogIn} officersList={officersList} logged={logged} />}/>
               <Route path="/admin" render={()=><LogoutButton logout={doLogOut}/>}/>
-              <Route path="/officer" render={()=><LogoutButton logout={doLogOut}/>}/>
+              <Route path="/officer" render={()=><OfficerPage logout={doLogOut} username={username}waiting={waiting} servicesList={servicesList}queue={queue}officersList={officersList}servicesDList={servicesDList}/>}/>
               <Route path="/queues" render={()=><QueueTable queues = {queue}/>}/>
               <Route path="/waitingTime" render={() => <WaitTimePage />} />
               <Route path="/selectservices" render={() => <SelectServices/> }/>
