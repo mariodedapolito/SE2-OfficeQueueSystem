@@ -221,7 +221,23 @@ if(response.ok){
         catch(err){throw err;}
      }
  }
-
-const API = { logOut, logIn, getUserInfo, getallOfficers, getAllQueues, getQueueByService, getServedTickets, getCalledTickets, getWaitingTickets, getTicketStatus, generateNewTicket, serveNextTicket, serveFirstTicket, getallServicesPerDesk,getallServices};
+//DELETE 
+function deleteAllTickets() {
+  return new Promise((resolve, reject) => {
+    fetch(`http://localhost:3000/api/tickets`, {
+      method: 'DELETE',
+    }).then((response) => {
+      if (response.ok) {
+        resolve(null);
+      } else {
+        // cause of error
+        response.json()
+          .then((obj) => { reject(obj); })
+          .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot delete tickets" }] }) });
+      }
+    }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Communication with server failed" }] }) });
+  });
+}
+const API = { logOut, logIn, getUserInfo, getallOfficers, getAllQueues, getQueueByService, getServedTickets, getCalledTickets, getWaitingTickets, getTicketStatus, generateNewTicket, serveNextTicket, serveFirstTicket, getallServicesPerDesk,getallServices,deleteAllTickets};
 export default API;
 
