@@ -130,10 +130,10 @@ exports.listAllServices = () => {
 
   ////////////// Update waiting time for selected Service /////////////////
   
-exports.updateServiceTime = (serviceId, time) => {
+exports.updateServiceTime = (serviceName, time) => {
     return new Promise((resolve, reject) => {
-      const sql = 'UPDATE services SET service_time=? WHERE service_id = ? ';
-      db.run(sql, [time, serviceId], function (err) {
+      const sql = 'UPDATE services SET service_time=? WHERE service_name = ? ';
+      db.run(sql, [time, serviceName], function (err) {
         if (err) {
           console.log(err)
           reject(err);
