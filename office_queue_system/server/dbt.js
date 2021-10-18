@@ -93,7 +93,7 @@ exports.getUser = (email, password) => {
               resolve(false);
           }
           else {
-              const user = { id: row.id, username: row.email, name: row.name, admin:row.admin };
+              const user = { id: row.id, username: row.email, name: row.name };
                    bcrypt.compare(password, row.hash).then(result => {
                   if (result)
                       resolve(user);
@@ -115,7 +115,7 @@ exports.getUserById = (id) => {
           else if (row === undefined)
               resolve({ error: 'User not found.' });
           else {
-              const user = { id: row.id, username: row.email, name: row.name, admin:row.admin  }
+              const user = { id: row.id, username: row.email, name: row.name }
               resolve(user);
           }
       });
