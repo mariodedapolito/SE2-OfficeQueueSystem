@@ -43,7 +43,7 @@ function App() {
   const [message, setMessage] = useState("");
   const [logged, setLogged] = useState(false);
   const [username, setUsername] = useState("");
-
+  const [recharged,setRecharged]=useState(true);
   /* LIST STRUCTURES */
   const [officersList, setOfficersList] = useState([]);
 
@@ -58,18 +58,20 @@ function App() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const updateRech=(x)=>{setRecharged(x)};
 
   useEffect(() => {
-    const getQueues = async () => {
-      const q = await API.getAllQueues();
-      setQueue(q);
-    };
-    getQueues().catch((err) => {
-      setMessage("impossible to load your queue! please try again later..");
-      console.error(err);
-      console.error(message);
-    });
-  }, []);
+  const getQueues = async () => {
+    const q = await API.getAllQueues();
+    setQueue(q);
+   setRecharged(false);
+  };
+      if(recharged){
+  getQueues().catch(err => {setMessage("impossible to load your queue! please try again later..");
+  console.error(err);
+  console.error(message);}
+  );}
+  },[recharged] );
 
   /* USEFFECT OFFICERS*/
   useEffect(() => {
@@ -204,7 +206,7 @@ function App() {
         />
         <Route
           path="/admin"
-          render={() => <LogoutButton logout={doLogOut} />}
+          render={() => <AdminPage setRecharged={updateRech} logout={doLogOut} />}
         />
         <Route
           path="/officer"
