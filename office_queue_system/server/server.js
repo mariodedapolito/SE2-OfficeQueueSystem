@@ -279,6 +279,18 @@ app.post("/api/serveNextTicket", async(req,res)=>{
     res.json(outcome);
 });
 
+app.post("/api/serveFirstTicket", async (req, res) => {
+
+    const new_ticket_id = req.body.new_ticket_id;
+    const desk_id = req.body.desk_id;
+
+    var outcome = await ticketsDao.serveFirstTicket(new_ticket_id, desk_id);
+
+    console.log(outcome);
+
+    res.json(outcome);
+});
+
 //// Admin part/////
 app.get('/api/desks', (req,res)=>{
     adminDao.listAllDesks()
