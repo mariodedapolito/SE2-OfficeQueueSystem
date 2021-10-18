@@ -382,6 +382,17 @@ app.put("/api/services/update/time/:serviceId/:time", async (req, res) => {
       );
   }
 });
+//DELETE all queues
+             app.delete('/api/tickets', 
+            async (req, res) => {
+               
+                try {
+                    await dbt.remove();
+                    res.status(204).end("tickets deleted!");
+                } catch (err) {
+                    res.status(503).json({ code: 503, error: "Unavailable service error during the delete of the queues" });
+                }
+            });
 
 /* CONNECTION */
 app.listen(PORT, () =>
