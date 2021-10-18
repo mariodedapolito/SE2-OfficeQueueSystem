@@ -46,7 +46,7 @@ function OfficerPage(props) {
               let val;
               let sh, ph;
               for (const w of servicesD) {
-                val = props.queue
+                val = props.waiting
                   .filter((c) => c[0].service_id === w)
                   .map((c) => c.length);
 
