@@ -173,6 +173,24 @@ async function serveNextTicket(old_ticket_id, new_ticket_id, desk_id) {
   }
 }
 
+//sets the new ticket status to "called" and assigns the desk to that ticket
+//return TRUE if ticket was successfully updated
+async function serveFirstTicket(new_ticket_id, desk_id) {
+  const response = await fetch('/api/serveFirstTicket', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({new_ticket_id: new_ticket_id, desk_id: desk_id}),
+  });
+  const outcome = await response.json();
+  if (response.ok) {
+    return outcome;
+  } else {
+    throw outcome;  // an object with the error coming from the server
+  }
+}
+
 //GET of services per desks
 async function getallServicesPerDesk(){
 
@@ -204,6 +222,6 @@ if(response.ok){
      }
  }
 
-const API = { logOut, logIn, getUserInfo, getallOfficers, getAllQueues, getQueueByService, getServedTickets, getCalledTickets, getWaitingTickets, getTicketStatus, generateNewTicket, serveNextTicket, getallServicesPerDesk,getallServices};
+const API = { logOut, logIn, getUserInfo, getallOfficers, getAllQueues, getQueueByService, getServedTickets, getCalledTickets, getWaitingTickets, getTicketStatus, generateNewTicket, serveNextTicket, serveFirstTicket, getallServicesPerDesk,getallServices};
 export default API;
 
