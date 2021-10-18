@@ -14,13 +14,29 @@ const db = new sqlite.Database('office_db.db', (err) => {
 
 exports.listAllDesks = () => {
     return new Promise((resolve, reject) => {
-      const sql = 'SELECT * FROM desks_services ';
+      const sql = 'SELECT  * FROM desks_services ORDER BY desk_id ASC ';
       db.all(sql, [], (err, rows) => {
         if (err) {
           reject(err);
           return;
         }
         const desks = rows.map((desk) => ({ desk_id: desk.desk_id, service_id: desk.service_id  }));
+        resolve(desks);
+      });
+    });
+  };
+
+/// Getting desk ids//////////
+
+exports.listDeskIds = () => {
+    return new Promise((resolve, reject) => {
+      const sql = 'SELECT desk_id FROM desks ';
+      db.all(sql, [], (err, rows) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        const desks = rows.map((desk) => ({ desk_id: desk.desk_id  }));
         resolve(desks);
       });
     });
