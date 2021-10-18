@@ -266,6 +266,19 @@ app.get("/api/generateTicket:service_id", async(req,res)=>{
     res.json(newTicketId);
 });
 
+app.post("/api/serveNextTicket", async(req,res)=>{
+
+    const old_ticket_id = req.body.old_ticket_id;
+    const new_ticket_id = req.body.new_ticket_id;
+    const desk_id = req.body.desk_id;
+    
+    var outcome = await ticketsDao.serveNextTicket(old_ticket_id, new_ticket_id, desk_id);
+    
+    console.log(outcome);
+
+    res.json(outcome);
+});
+
 //// Admin part/////
 app.get('/api/desks', (req,res)=>{
     adminDao.listAllDesks()
