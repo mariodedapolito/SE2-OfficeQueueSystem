@@ -367,8 +367,8 @@ app.post("/api/service", (req, res) => {
   }
 });
 
-app.put("/api/services/update/time/:serviceId/:time", async (req, res) => {
-  const id = req.params.serviceId;
+app.put('/api/services/update/time/:serviceName/:time',  async(req,res) => {
+    const id = req.params.serviceName;
   const time = req.params.time;
   try {
     let task = await adminDao.updateServiceTime(id, time);
