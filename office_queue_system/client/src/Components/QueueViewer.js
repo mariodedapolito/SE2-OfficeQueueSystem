@@ -47,7 +47,7 @@ function QueueTable(props) {
             props.queues.map((c) => <>
             <tr>
             <td>{c[0].service_id}</td>
-            <td>{c.length}</td>
+            <td>{c.filter(element => element.ticket_status==="waiting").length + 1}</td>
             <td>
                 {c.find(element => element.ticket_status === "called") ?
                     'Ticket ' + c.find(element => element.ticket_status === "called").ticket_id + ' go to desk ' + c.find(element => element.ticket_status === "called").desk_id
