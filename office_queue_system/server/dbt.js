@@ -23,6 +23,22 @@ exports.getAllOfficers=()=>{
     
     );
 };
+//delete 
+exports.remove = async () => {
+    
+    return new Promise((resolve, reject) => {
+        const sql = 'DELETE FROM tickets ';
+        db.run(sql, [], function (err) {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve();
+        });
+    });
+
+}
+
 
 //get services per desk 
 exports.getServicesPerDesk= () => {
