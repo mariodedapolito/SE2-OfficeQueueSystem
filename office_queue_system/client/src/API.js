@@ -1,3 +1,4 @@
+import Desk from './Models/desk'
 //api login
 async function logIn(credentials) {
   let response = await fetch('http://localhost:3000/api/sessions', {
@@ -238,6 +239,94 @@ function deleteAllTickets() {
     }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Communication with server failed" }] }) });
   });
 }
-const API = { logOut, logIn, getUserInfo, getallOfficers, getAllQueues, getQueueByService, getServedTickets, getCalledTickets, getWaitingTickets, getTicketStatus, generateNewTicket, serveNextTicket, serveFirstTicket, getallServicesPerDesk,getallServices,deleteAllTickets};
+
+
+/////////////////// Admin Part /////////////
+
+async function getDesks() {
+  const response = await fetch('http://localhost:3000/api/desks');
+  const desksJson = await response.json();
+  if(response.ok){
+    //return tasksJson.map((t) => Task.from(t));
+    return desksJson.map((d) => new Desk(d.desk_id,d.service_id));
+} else {
+    let err = {status: response.status, errObj:desksJson};
+    throw err;  // An object with the error coming from the server
+}
+}
+
+async function getDeskIds() {
+  const response = await fetch('http://localhost:3000/api/deskids');
+  const queuesArray = await response.json();
+  if (response.ok) {
+    return queuesArray;
+  } else {
+    throw queuesArray;  // an object with the error coming from the server
+  }
+}
+
+async function getAllServicesInfo() {
+  const response = await fetch('http://localhost:3000/api/services');
+  const queuesArray = await response.json();
+  if (response.ok) {
+    return queuesArray;
+  } else {
+    throw queuesArray;  // an object with the error coming from the server
+  }
+}
+
+// api for adding the questions 
+function addDeskService(deskId, serviceId) {
+  return new Promise((resolve, reject) => {
+    fetch('http://localhost:3000/api/serviceForDesk', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      //body: JSON.stringify({code: exam.coursecode, score: exam.score, date: exam.date}),
+      body : JSON.stringify({ desk_id:deskId, service_id:serviceId
+      })
+      }).then((response) => {
+        if (response.ok) {
+          resolve(null);
+        } else {
+          // analyze the cause of error
+          response.json()
+            .then((message) => { reject(message); }) // error message in the response body
+            .catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
+        }
+    }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
+  });
+}
+
+// api/serv/delete
+   
+function deleteServiceOfDesk(deskId, serviceId) {
+  // call: DELETE /api/exams/:coursecode
+  return new Promise((resolve, reject) => {
+    fetch('http://localhost:3000/api/serviceForDesk/delete/' + deskId+ '/'+serviceId, {
+      method: 'DELETE',
+    }).then((response) => {
+      if (response.ok) {
+        resolve(null);
+      } else {
+        // analyze the cause of error
+        response.json()
+          .then((message) => { reject(message); }) // error message in the response body
+          .catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
+        }
+    }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
+  });
+}
+
+
+
+
+
+
+
+const API = { logOut, logIn, getUserInfo, getallOfficers, getAllQueues, getQueueByService, getServedTickets, getCalledTickets, getWaitingTickets, getTicketStatus, generateNewTicket, serveNextTicket, serveFirstTicket, getallServicesPerDesk,getallServices,deleteAllTickets,
+            getDesks, getAllServicesInfo, getDeskIds, addDeskService, deleteServiceOfDesk
+            };
 export default API;
 
