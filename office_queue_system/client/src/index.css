@@ -34,5 +34,28 @@ code {
   border-bottom: 1px solid #fff;
 }
 
+.paragraph{
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  font-size: 24pt;
+}
 
+.paragraph-disclaimer
+{
+  width: 50%;
+  margin: 12% auto;
+  text-align: center;
+  
+}
+
+.title{
+  font-size: 50pt;
+}
+
+.remains{
+  font-size: 15pt;
+}
 

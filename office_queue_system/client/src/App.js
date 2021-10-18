@@ -255,7 +255,7 @@ useEffect(() => {
           render={() => <SelectServices servicesList={servicesList} />}
         />
 
-        <Route path="/" render={() => <BLogin />} />
+        <Route path="/" render={() => <HomePage />} />
       </Switch>
     </Router>
   );

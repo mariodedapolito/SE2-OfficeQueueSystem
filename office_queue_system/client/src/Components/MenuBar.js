@@ -18,10 +18,10 @@ const MenuBar = function(props) {
                     <a class="nav-link" href="/Queues">Queues</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/waitingTime">Waiting Time Calculator</a>
+                  <a class="nav-link" href="/selectservices">Services</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/selectservices">Select Services</a>
+                  <a class="nav-link" href="/waitingTime">Waiting Time Calculator</a>
                   </li>
                 </ul>
               </div>
