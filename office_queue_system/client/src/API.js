@@ -319,6 +319,28 @@ function deleteServiceOfDesk(deskId, serviceId) {
   });
 }
 
+function updateServiceTime(serviceName, time){
+  return new Promise((resolve, reject) => {
+    fetch('http://localhost:3000/api/services/update/time/'  + serviceName +'/' + time, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+    },
+      body : JSON.stringify({})
+ 
+    }).then((response) => {
+      if (response.ok) {
+        resolve(null);
+      } else {
+        // analyze the cause of error
+        response.json()
+          .then((obj) => { reject(obj); }) // error message in the response body
+          .catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
+      }
+    }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
+  });
+}
+
 
 
 
@@ -326,7 +348,7 @@ function deleteServiceOfDesk(deskId, serviceId) {
 
 
 const API = { logOut, logIn, getUserInfo, getallOfficers, getAllQueues, getQueueByService, getServedTickets, getCalledTickets, getWaitingTickets, getTicketStatus, generateNewTicket, serveNextTicket, serveFirstTicket, getallServicesPerDesk,getallServices,deleteAllTickets,
-            getDesks, getAllServicesInfo, getDeskIds, addDeskService, deleteServiceOfDesk
+            getDesks, getAllServicesInfo, getDeskIds, addDeskService, deleteServiceOfDesk, updateServiceTime
             };
 export default API;
 
