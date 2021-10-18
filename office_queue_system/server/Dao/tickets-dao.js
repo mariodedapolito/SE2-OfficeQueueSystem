@@ -93,3 +93,15 @@ exports.generateNewTicket = (service_id) => {
     });
 }
 
+exports.serveNextTicket = (old_ticket_id, new_ticket_id, desk_id) => {
+    return new Promise((resolve, reject) => {
+        const sql = "UPDATE tickets SET ticket_status = \"served\" WHERE ticket_id = ?; UPDATE tickets SET ticket_status = \"called\", desk_id = ? WHERE ticket_id = ?;"
+        db.run(sql, [old_ticket_id, desk_id, new_ticket_id], function (err) {
+            if (err) {
+                reject(err);
+            }
+            console.log(this);
+            resolve(true);
+        });
+    });
+}
