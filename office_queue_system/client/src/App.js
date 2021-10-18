@@ -52,7 +52,12 @@ function App() {
   const [servicesDList, setServicesDList] = useState([]);
 
   const [waiting, setWaiting] = useState([]);
-
+/* ADMIN PART */
+const [loading, setLoading]=useState(true)//this for checking the loading at mount
+const [dirty, setDirty] =useState(true)
+const[deskList, setDeskList]= useState([])
+const [deskIds, setDeskIds]=useState([])
+const [servicesForDesk, setServicesForDesk]=useState([])
   /* QUEUE DATA STRUCTURE */
   const [queue, setQueue] = useState([]);
 
@@ -136,6 +141,27 @@ function App() {
     };
     fu();
   }, []);
+  
+  /*USEFFECT ADMIN*/
+useEffect(() => {
+  if(dirty){
+    API.getDesks().then(newDesk=>{
+      setDeskList(newDesk)
+      setDirty(false)
+      setLoading(false)
+     })
+     API.getAllServicesInfo().then(newServiceForDesk=>{
+      setServicesForDesk(newServiceForDesk)
+      setDirty(false)
+      setLoading(false)
+     })
+     API.getDeskIds().then(newDeskId=>{
+      setDeskIds(newDeskId)
+      setDirty(false)
+      setLoading(false)
+     })
+    }
+  }, [dirty,loading])
 
   /*USEFFECT LOGIN*/
   useEffect(() => {
@@ -206,7 +232,7 @@ function App() {
         />
         <Route
           path="/admin"
-          render={() => <AdminPage setRecharged={updateRech} logout={doLogOut} />}
+          render={() => <AdminPage deskids={deskIds} desks={deskList} services={servicesForDesk} setRecharged={updateRech} logout={doLogOut} />}
         />
         <Route
           path="/officer"
