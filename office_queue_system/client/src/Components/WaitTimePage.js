@@ -39,30 +39,31 @@ function WaitTimePage(props) {
                     return;
                 }
 
-                //uncomment when implemented
-                //const services = await API.getAllServices();    
-                const services = [
-                    { service_id: 1, service_name: "Banking", service_time: 15 },
-                    { service_id: 3, service_name: "Shipping", service_time: 10 },
-                    { service_id: 5, service_name: "Cashier", service_time: 7 }
-                ];
+                const services = await API.getallServices();
 
                 const neededService = services.find(element => element.service_id === ticket.service_id);
 
                 const queue = await API.getQueueByService(neededService.service_id);
 
-                //uncomment when implemented
-                //const await desksServices = API.getAllDesksServices();
-                const desksServices = [
-                    [{ desk_id: 1, service_id: 1 }, { desk_id: 1, service_id: 5 }],
-                    [{ desk_id: 2, service_id: 5 }],
-                    [{ desk_id: 3, service_id: 3 }],
-                    [{ desk_id: 4, service_id: 4 }, { desk_id: 3, service_id: 3 }, { desk_id: 4, service_id: 5 }]
-                ];
+                const desksServicesTmp = (await API.getallServicesPerDesk(ticket.desk_id)).sort((a,b)=>(a.desk_id-b.desk_id));
+                let desksServices = [];
+                let currentService = -1;
+                let currentIndex = -1;
+                desksServicesTmp.forEach(element => {
+                    if (element.desk_id !== currentService) {
+                        currentIndex++;
+                        currentService = element.desk_id;
+                        desksServices.push(new Array());
+                        desksServices[currentIndex].push(element);
+                    }
+                    else {
+                        desksServices[currentIndex].push(element);
+                    }
+                });
 
                 let waitTime = neededService.service_time;
 
-                const numPeopleInQueue = queue.filter(element => (element.ticket_id<ticket.ticket_id && element.ticket_status === "waiting")).length;
+                const numPeopleInQueue = queue.filter(element => (element.ticket_id < ticket.ticket_id && element.ticket_status === "waiting")).length;
 
                 let denominator = 0;
                 desksServices.forEach(element => {
@@ -87,7 +88,7 @@ function WaitTimePage(props) {
     return (
         <Row className="mt-5">
             <Col className="col-xl-4">
-                <Link to={"/"} onClick={() => {setServerErrorMessage(""); setTicketErrorMessage(""); setTicketNumber(""); setCalculate(false); }}>
+                <Link to={"/"} onClick={() => { setServerErrorMessage(""); setTicketErrorMessage(""); setTicketNumber(""); setCalculate(false); }}>
                     <Button className="btn btn-secondary d-block my-2 mx-auto py-2 px-5">Go back</Button>
                 </Link>
             </Col>
