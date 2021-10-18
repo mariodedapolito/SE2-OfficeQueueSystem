@@ -204,6 +204,6 @@ if(response.ok){
      }
  }
 
-const API = { logOut, logIn, getUserInfo, getallOfficers, getAllQueues, getQueueByService, getServedTickets, getCalledTickets, getWaitingTickets, getTicketStatus, generateNewTicket,getallServicesPerDesk,getallServices};
+const API = { logOut, logIn, getUserInfo, getallOfficers, getAllQueues, getQueueByService, getServedTickets, getCalledTickets, getWaitingTickets, getTicketStatus, generateNewTicket, serveNextTicket, getallServicesPerDesk,getallServices};
 export default API;
 
