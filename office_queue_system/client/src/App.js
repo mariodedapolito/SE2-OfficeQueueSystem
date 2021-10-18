@@ -118,21 +118,7 @@ useEffect(() => {
   console.error(message);
 });
 },[] );
-   then(data=>{
-      data.forEach((x) => {
-     d.push(new ticket(x.ticket_id, x.service_id, x.desk));
-        
-                 });
-      let t=[...g];
-      
-      d=[]; 
-     
-      setServicesList(t);
-     
-   
-    })};  func();
- 
-  },[]);
+  
 
 /* USEFFECT SERVICES PER DESKS*/
   useEffect(()=>{
