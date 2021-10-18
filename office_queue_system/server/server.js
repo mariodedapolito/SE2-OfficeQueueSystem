@@ -382,6 +382,12 @@ app.put("/api/services/update/time/:serviceId/:time", async (req, res) => {
       );
   }
 });
+
+app.get('/api/deskids', (req,res)=>{
+    adminDao.listDeskIds()
+        .then((surveys)=>{res.json(surveys)})
+        .catch((error)=>{res.status(500).json(error)} )
+  })
 //DELETE all queues
              app.delete('/api/tickets', 
             async (req, res) => {
