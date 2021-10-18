@@ -31,6 +31,7 @@ function QueueTable(props) {
           <tr>
             <th>Service</th>
             <th>Queue Length</th>
+            <th>Called tickets</th>
           </tr>
         </thead>
         <tbody>{
@@ -47,6 +48,13 @@ function QueueTable(props) {
             <tr>
             <td>{c[0].service_id}</td>
             <td>{c.length}</td>
+            <td>
+                {c.find(element => element.ticket_status === "called") ?
+                    'Ticket ' + c.find(element => element.ticket_status === "called").ticket_id + ' go to desk ' + c.find(element => element.ticket_status === "called").desk_id
+                    :
+                    'None'
+                }
+            </td>
             </tr>
             </>)
         }
