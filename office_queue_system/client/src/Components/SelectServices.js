@@ -1,6 +1,5 @@
 import { Button, Col, Row, Container, Alert } from "react-bootstrap";
 import { useState } from "react";
-import { service } from "../Officer";
 import API from "../API";
 
 function SelectServices(props) {

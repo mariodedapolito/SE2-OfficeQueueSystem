@@ -30,7 +30,7 @@ function DeskItem(props){
 }
 
   function ModalForDesks(props) {
-    const { fulldesks, desks, onClose, onSave, onDelete, services } = props;
+    const {  desks, onClose, onSave, onDelete, services } = props;
     const [selectedDesk, setSelectedDesk]=useState(1)
     const [selectedService, setSelectedService]=useState(1)
 
@@ -230,15 +230,10 @@ function AdminPage(props) {
         <>
 
 <Row>
-   <LogoutButton logout={props.logout}/>
+  <div className="logbtn"><LogoutButton logout={props.logout}/></div>
+   
 
 <Button style={{ fontSize: 20 }} style={{'position':'absolute' , 'right':'10px'}}onClick={()=>{API.deleteAllTickets().then(props.setRecharged(true)); }}>RESET QUEUES</Button></Row>
-        <div className="loginContainer">
-        <div className="loginForm" >
-       <h2>This is admin page</h2>
-        </div>
-        </div>
-
 <Container fluid>
         <div className="AdminCards">
         <Row>

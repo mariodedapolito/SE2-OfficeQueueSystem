@@ -4,11 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function HomePage(props) {
     return (
 
-        <body class= "Home">
+        <body className= "Home">
         <div id="paragraph">
-        <div class="paragraph-disclaimer">
-            <div class = "title"> Welcome.</div> <br/>
-            <div class = "remains"> As a new customer, do you want to receive your ticket number?<br/>
+        <div className="paragraph-disclaimer">
+            <div className = "title"> Welcome.</div> <br/>
+            <div className = "remains"> As a new customer, do you want to receive your ticket number?<br/>
             <a href="selectservices">Select services here.</a> <br />
             <br/>
             Already got a ticket? <br/>

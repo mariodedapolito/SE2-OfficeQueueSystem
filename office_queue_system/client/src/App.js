@@ -4,9 +4,9 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import { Row, Alert, Button } from "react-bootstrap";
-import { LoginForm, LogoutButton } from "./LoginForm";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Row, Alert } from "react-bootstrap";
+import { LoginForm} from "./LoginForm";
 import { WaitTimePage } from "./Components/WaitTimePage";
 import API from "./API";
 import Modal from "react-bootstrap/Modal";
@@ -18,7 +18,7 @@ import HomePage from "./Components/HomePage";
 import SelectServices from "./Components/SelectServices";
 
 import QueueTable from "./Components/QueueViewer.js";
-
+/*
 function BLogin() {
   return (
     <>
@@ -34,6 +34,7 @@ function BLogin() {
     </>
   );
 }
+*/
 
 let group = [];
 let g = [];
@@ -74,7 +75,7 @@ const [servicesForDesk, setServicesForDesk]=useState([])
       if(recharged){
   getQueues().catch(err => {setMessage("impossible to load your queue! please try again later..");
   console.error(err);
-  console.error(message);}
+  }
   );}
   },[recharged] );
 
@@ -121,7 +122,7 @@ const [servicesForDesk, setServicesForDesk]=useState([])
         "impossible to load your Waiting tickets! please try again later.."
       );
       console.error(err);
-      console.error(message);
+      
     });
   }, []);
 
