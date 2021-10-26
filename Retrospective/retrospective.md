@@ -1,4 +1,4 @@
-# RETROSPECTIVE (Team R01)
+# RETROSPECTIVE (Team R02)
 
 The retrospective should include _at least_ the following
 sections:
