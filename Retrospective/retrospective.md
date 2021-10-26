@@ -13,7 +13,7 @@ sections:
 
 - Committed Stories: 11 ; Stories Done: 0
 - Committed Points: 27; Points Done: 0
-- Planned Hours: 50.5 ; Spent Hours: 42.41 (Without Michele 41.41)
+- Planned Hours: 50.5 ; Spent Hours: 46.75
 
 **Remember** a story is done ONLY if it fits the Definition of Done:
 
@@ -31,7 +31,7 @@ sections:
 | _#0_  | 6       | -      | 15h 30m    | 14h 10m          |
 | _#1_  | 1       | 2      | 3h 30m     | 5h 15m           |
 | _#2_  | 1       | 1      | 3h         | 2h 45m           |
-| _#3_  | 1       | 3      | 5h         | 3h 30m(Michele?) |
+| _#3_  | 1       | 3      | 5h         | 3h 30m           |
 | _#4_  | 2       | 3      | 4h 30m     | 3h 30m           |
 | _#5_  | 1       | 3      | 3h         | 2h 30m           |
 | _#6_  | 1       | 2      | 1h 30m     | 2h 30m           |
@@ -43,8 +43,8 @@ sections:
 
 > place technical tasks corresponding to story `#0` and leave out story points (not applicable in this case)
 
-- Hours per task (average, standard deviation)
-- Total task estimation error ratio: sum of total hours estimation / sum of total hours spent from previous table
+- Average hour per task: 50.5(hours)/19(#tasks)= 2.65 hours; Standard deviation:
+- Total task estimation error ratio: 1.08
 
 ## QUALITY MEASURES
 
