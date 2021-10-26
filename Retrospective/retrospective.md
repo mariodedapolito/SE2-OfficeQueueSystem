@@ -11,8 +11,8 @@ sections:
 
 ### Macro statistics
 
-- Committed Stories: 11 ; Stories Done: 0
-- Committed Points: 27; Points Done: 0
+- Committed Stories: 10 ; Stories Done: 0
+- Committed Points: 25; Points Done: 0
 - Planned Hours: 50.5 ; Spent Hours: 46.75
 
 **Remember** a story is done ONLY if it fits the Definition of Done:
@@ -35,7 +35,6 @@ sections:
 | _#4_  | 2       | 3      | 4h 30m     | 3h 30m           |
 | _#5_  | 1       | 3      | 3h         | 2h 30m           |
 | _#6_  | 1       | 2      | 1h 30m     | 2h 30m           |
-| _#7_  |         | -      |            |                  |
 | _#8_  | 1       | 1      | 1h         | 45m              |
 | _#9_  | 2       | 5      | 3h 30m     | 2h 30m           |
 | _#10_ | 1       | 2      | 1h 30m     | 3h 30m           |
