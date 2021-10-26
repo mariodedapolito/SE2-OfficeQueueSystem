@@ -49,19 +49,19 @@ sections:
 ## QUALITY MEASURES
 
 - Unit Testing:
-  - Total hours estimated
-  - Total hours spent
-  - Nr of automated unit test cases
-  - Coverage (if available)
+  - Total hours estimated: 0h (6h of studying unit testing methods)
+  - Total hours spent: 0h (3h of studying unit testing methods)
+  - Nr of automated unit test cases : 0
+
 - E2E testing:
-  - Total hours estimated
-  - Total hours spent
+  - Total hours estimated: 9h 30 min
+  - Total hours spent: 8h 45 min
 - Code review
   - Total hours estimated
   - Total hours spent
 - Technical Debt management:
-  - Total hours estimated
-  - Total hours spent
+  - Total hours estimated: 1h 30min
+  - Total hours spent: 1h 30min
   - Hours estimated for remediation by SonarQube
   - Hours estimated for remediation by SonarQube only for the selected and planned issues
   - Hours spent on remediation
@@ -71,14 +71,27 @@ sections:
 ## ASSESSMENT
 
 - What caused your errors in estimation (if any)?
+  - Underestimated need for coordination between team members (many modules of the app were linked and were dependent on one another)
+  - Underestimated code documentation and testing time
+
 
 - What lessons did you learn (both positive and negative) in this sprint?
+  - The need for a well-documented code is essential in a team-working environment
+  - We need to schedule more time for organization and coordination meetings
+  - We need to better divide the tasks among team members to reduce wasted time on coordination
+
 
 - Which improvement goals set in the previous retrospective were you able to achieve?
+  - Nothing
 - Which ones you were not able to achieve? Why?
+  - Nothing
 
 - Improvement goals for the next sprint and how to achieve them (technical tasks, team coordination, etc.)
 
-> Propose one or two
+  - Loose less time in coordination efforts by estimating more hours for communication and documentation
+  - Better define tasks to reduce task dependencies and improve the possibility for all team members to work in parallel
+
 
 - One thing you are proud of as a Team!!
+  - Everyone worked really hard to provide a perfectly working demo
+  - The communication between team members was extremely friendly
