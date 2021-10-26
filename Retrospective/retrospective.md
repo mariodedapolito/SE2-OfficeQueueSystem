@@ -43,7 +43,7 @@ sections:
 
 > place technical tasks corresponding to story `#0` and leave out story points (not applicable in this case)
 
-- Average hour per task: 50.5(hours)/19(#tasks)= 2.65 hours; Standard deviation:
+- Average hour per task: 50.5(hours)/19(#tasks)= 2.65 hours; Standard deviation:1.85
 - Total task estimation error ratio: 1.08
 
 ## QUALITY MEASURES
